@@ -6,12 +6,12 @@
 :root {
   --background: #121212;
   --shape: #ffffff;
-  --red: #e52e4d;
-  --blue: #5429cc;
-  --green: #33cc95;
-  --orange: #ff872c;
-  --purple: #6933ff;
-  --yellow: #e5e52e;
+  --tag1: #e52e4d;
+  --tag2: #5429cc;
+  --tag3: #33cc95;
+  --tag4: #ff872c;
+  --tag5: #6933ff;
+  --tag6: #e5e52e;
   --blue-light: #6933ff;
   --text-title: #363f5f;
   --text-body: #ffffff;
@@ -49,24 +49,24 @@ html {
   overflow: hidden;
 }
 
-.terminal-red,
+.terminal-cr,
 .terminal-user-name, cr {
-  color: var(--red);
+  color: var(--tag1);
 }
-.terminal-green, cg {
-  color: var(--green);
+.terminal-cg, cg {
+  color: var(--tag3);
 }
-.terminal-blue, cb {
-  color: var(--blue);
+.terminal-cb, cb {
+  color: var(--tag2);
 }
-.terminal-purple, cp {
-  color: var(--purple);
+.terminal-cp, cp {
+  color: var(--tag5);
 }
-.terminal-yellow,
+.terminal-cy,
 .terminal-dir, cy {
-  color: var(--yellow);
+  color: var(--tag6);
 }
-.terminal-orange,
+.terminal-co,
 .terminal-dir, co {
-  color: var(--orange);
+  color: var(--tag4);
 }

@@ -18,6 +18,14 @@ const terminal = {
 
   commands: require("./commands").init(),
 
+  generateSpaces: function (amount) {
+    let spaces = "";
+    for (let i = 0; i < amount; i++) {
+      spaces += "&nbsp;";
+    }
+    return spaces;
+  },
+
   init: function () {
     this.terminalFullUser =
       this.terminalUser +
@@ -103,6 +111,25 @@ const terminal = {
     const element = document.createElement("div");
     element.classList.add("terminal-line");
 
+    const fmt = text.replaceAll("<", "&lt;")
+      .replaceAll("&lt;cg>", "<cg>")
+      .replaceAll("&lt;/cg>", "</cg>")
+
+      .replaceAll("&lt;cb>", "<cb>")
+      .replaceAll("&lt;/cb>", "</cb>")
+
+      .replaceAll("&lt;cr>", "<cr>")
+      .replaceAll("&lt;/cr>", "</cr>")
+
+      .replaceAll("&lt;cy>", "<cy>")
+      .replaceAll("&lt;/cy>", "</cy>")
+
+      .replaceAll("&lt;co>", "<co>")
+      .replaceAll("&lt;/co>", "</co>")
+
+      .replaceAll("&lt;cp>", "<cp>")
+      .replaceAll("&lt;/cp>", "</cp>")
+
     element.innerHTML = `
             ${
               noAuthor
@@ -115,7 +142,9 @@ const terminal = {
                 <span class="terminal-dir">${this.terminalDirPath}</span>
             `
             }
-            <span class="terminal-text">${text.replaceAll("<", "&lt;")}</span>
+            <span class="terminal-text">
+              ${fmt}
+            </span>
         `;
     this.logs.push(element);
     this.terminalContent.insertAdjacentElement("beforeend", element);

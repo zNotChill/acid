@@ -16,6 +16,12 @@
 <script src="./terminal.js"></script>
 <script>
   terminal.init();
+
+  const theme = localStorage.getItem('theme');
+
+  if (theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+  }
 </script>
 <script src="./bin/math.min.js" defer></script>
 </html>

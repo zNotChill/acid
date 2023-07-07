@@ -7,7 +7,7 @@ module.exports = new Command(
   (args, terminal) => {
     terminal.cWrite(`Commands:`);
     terminal.commands.forEach((command) => {
-      terminal.cWrite(`${command.getName()} - ${command.getDescription()}`);
+      terminal.cWrite(`<cg>${command.getName()}</cg>${terminal.generateSpaces(25 - command.getName().length)} ${command.getDescription()}`);
     });
   }
 )
