@@ -40,7 +40,6 @@ const terminal = {
 
     document.addEventListener("keydown", async (e) => {
       
-      console.log(e); 
       let text = e.key.toString();
 
       if(e.ctrlKey && e.key == "v") {

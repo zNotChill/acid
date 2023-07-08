@@ -10,10 +10,8 @@ module.exports = new Command(
     const fs = require("fs");
     const path = require("path");
 
-
     const dir = path.join(terminal.terminalDirPath, args.join(" "));
     
-    console.log(dir);
     const files = fs.readdirSync(dir);
 
     terminal.setTerminalDirPath(dir);

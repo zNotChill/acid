@@ -4,7 +4,7 @@ const { Command } = require("../commands");
 module.exports = new Command(
   "curl",
   "Makes a request to a URL",
-  async (args, terminal) => {
+  (args, terminal) => {
     setTimeout(() => {
     }, 2000);
 
