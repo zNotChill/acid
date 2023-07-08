@@ -18,6 +18,7 @@ module.exports = new Command(
 
     editor(filePath, (code, sig) => {
       terminal.cWrite(`Saved a file at <co>${filePath}</co>`);
+      terminal.write(``, false);
     });
   },
   {
