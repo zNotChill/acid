@@ -13,9 +13,18 @@ class Command {
   }
 
   async execute(args = [], terminal) {
-    await this.callback(args, terminal, this.config);
+    return new Promise(async (resolve, reject) => {
+      if(this.config.requiresArgs && args.length < this.config.minimumArgs) {
+        terminal.write(`<cr>Usage: ${this.config.usage}</cr>`, true);
+        resolve(false);
+        return;
+      }
 
-    return 0;
+      const request = await this.callback(args, terminal);
+
+      console.log(request);
+      resolve(true);
+    });
   }
 
   getName() {

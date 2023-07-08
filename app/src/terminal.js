@@ -54,10 +54,16 @@ const terminal = {
           const split = this.currentLine.querySelector(".terminal-text").innerText;
           const args = split.split(" ");
           const command = args.shift();
-          this.commands.map(async (command) => {
-            if (command.getName() == command) {
-              await command.execute(args, this);
-              this.write(``, false);
+          if(!this.commands.map((cmd) => cmd.getName()).includes(command)) {
+            this.write(`Command "<cg>${command}</cg>" not found`, true);
+            this.write(``, false);
+            return;
+          }
+          this.commands.map(async (cmd) => {
+            if (cmd.getName() == command) {
+              const run = await cmd.execute(args, this);
+              
+              console.log(run);
             }
           }
           );
