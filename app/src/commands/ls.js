@@ -1,20 +1,43 @@
 
 const { Command } = require("../commands");
 
+// TODO: Add multiple drive support
 module.exports = new Command(
   "ls",
   "Lists chosen data",
   (args, terminal, config) => {
+
     const fs = require("fs");
     const path = require("path");
 
-    const dir = args[0] || "C:\\Users\\Public";
+
+    const dir = path.join(terminal.terminalDirPath, args.join(" "));
+    
+    console.log(dir);
     const files = fs.readdirSync(dir);
 
-    terminal.cWrite(`Listing files in ${dir}`);
+    terminal.setTerminalDirPath(dir);
+    terminal.cWrite(`Listing files in <co>${dir}</co>`);
+
+    const max = 80;
+
+    if(files.length < 1) return terminal.cWrite("No files found");
+
+    if(files.length > max) {
+      terminal.cWrite(`Displaying more than <cg>${max}</cg> files may degrade performance.`);
+      terminal.cWrite(`Showing first <cg>${max}</cg> files...`)
+      files.length = max;
+    }
+
     files.forEach((file) => {
-      const stats = fs.statSync(path.join(dir, file));
-      terminal.cWrite(`${file} - ${stats.size} bytes`);
+      var type;
+
+      try {
+        type = fs.lstatSync(path.join(dir, file)).isDirectory();
+      } catch (error) {
+        type = true;
+      }
+      terminal.cWrite(`${type ? "📁" : "📘"} ${file}`);
     });
   }
 )
