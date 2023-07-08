@@ -4,7 +4,7 @@ const { Command } = require("../commands");
 module.exports = new Command(
   "fsize",
   "Changes global font size",
-  async (args, terminal) => {
+  (args, terminal) => {
     var size = args[0];
 
     if(!size.includes("px")) {

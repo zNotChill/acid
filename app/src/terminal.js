@@ -60,9 +60,11 @@ const terminal = {
           }
           this.commands.map(async (cmd) => {
             if (cmd.getName() == command) {
-              const run = await cmd.execute(args, this);
+              const run = cmd.execute(args, this);
               
-              console.log(run);
+              run.then((res) => {
+                console.log(res);
+              });
             }
           }
           );

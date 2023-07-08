@@ -13,18 +13,20 @@ class Command {
   }
 
   async execute(args = [], terminal) {
-    return new Promise(async (resolve, reject) => {
+    return new Promise((resolve, reject) => {
       if(this.config.requiresArgs && args.length < this.config.minimumArgs) {
         terminal.write(`<cr>Usage: ${this.config.usage}</cr>`, true);
         resolve(false);
         return;
       }
 
-      const request = await this.callback(args, terminal);
+      const request = this.callback(args, terminal);
 
-      console.log(request);
-      resolve(true);
-    });
+      // todo figure out how this shit works because i tweaked some stuff and it kinda works
+      request.then((res) => {
+        resolve(true);
+      });
+d    });
   }
 
   getName() {

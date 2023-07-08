@@ -6,6 +6,7 @@ module.exports = new Command(
   "Makes a request to a URL",
   (args, terminal) => {
     setTimeout(() => {
+      terminal.cWrite("<cg>dsadsasasd</cg>")
     }, 2000);
 
     return 0;
