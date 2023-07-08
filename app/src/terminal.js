@@ -38,65 +38,38 @@ const terminal = {
     this.write(`Type "help" to see all commands`, true);
     this.write(``, false);
 
-    document.addEventListener("keydown", (e) => {
-      if (e.key == "Backspace") {
-        if (this.currentLineExists()) {
-          this.backspaceCurrentLine();
-        }
-      } else {
-        // I'm too bad at this to use regex or something else to check for letters so I'm just gonna use this
-        if (e.key.length == 1) {
-          if (this.currentLineExists()) {
-            this.writeToCurrentLine(e.key);
-          } else {
-            this.write(e.key);
-          }
-        } else if (e.key == "Enter" || e.key == "NumpadEnter") {
-          if (
-            this.currentLineExists() &&
-            this.currentLine.querySelector(".terminal-text").innerText != ""
-          ) {
-            let cmdFound = false;
-            const text = this.currentLine
-              .querySelector(".terminal-text")
-              .innerText.split(" ");
+    document.addEventListener("keydown", async (e) => {
+      
+      console.log(e); 
+      let text = e.key.toString();
 
-            const cmd = text[0];
-            const args = text.slice(1);
-
-            this.commands.forEach((command) => {
-              if (command.getName() == cmd) {
-                console.log(command);
-                if(command.config.requiresArgs && args.length < command.config.minimumArgs) {
-                  this.write(`Command requires at least ${command.config.minimumArgs} argument(s)`, true);
-                  this.write(`Usage: ${command.config.usage}`, true);
-                  this.write(``, false);
-                  cmdFound = true;
-                  return;
-                }
-                
-                try {
-                  command.execute(args, terminal, command.config);
-                } catch (error) {
-                  this.cWrite(`An error occured while executing the command <cg>${command.getName()}</cg>`);
-                  this.cWrite(`<cr>${error}</cr>`);
-                  console.log(error);
-                }
-
-                cmdFound = true;
-                this.write(``, false);
-              }
-            });
-
-            if (!cmdFound) {
-              this.write(`Command not found: ${text}`, true);
-
+      if(e.ctrlKey && e.key == "v") {
+        console.log("Pasting");
+        text = await navigator.clipboard.readText();
+      } else if(e.ctrlKey) {
+        return;
+      }
+      switch (e.key) {
+        case "Enter":
+          const split = this.currentLine.querySelector(".terminal-text").innerText;
+          const args = split.split(" ");
+          const command = args.shift();
+          this.commands.map(async (command) => {
+            if (command.getName() == command) {
+              await command.execute(args, this);
               this.write(``, false);
             }
-          } else {
-            this.write(``, false);
           }
-        }
+          );
+          break;
+        case "Backspace":
+          this.backspaceCurrentLine();
+          break;
+        default:
+          if(e.ctrlKey) return;
+          if(e.key.length > 1) return;
+          this.writeToCurrentLine(text);
+          break;
       }
     });
   },

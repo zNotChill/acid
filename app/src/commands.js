@@ -12,8 +12,10 @@ class Command {
 
   }
 
-  execute(args = [], terminal) {
-    this.callback(args, terminal, this.config);
+  async execute(args = [], terminal) {
+    await this.callback(args, terminal, this.config);
+
+    return 0;
   }
 
   getName() {
