@@ -10,7 +10,7 @@ const terminal = {
   terminalUser: "root",
   terminalDevice: "znci",
   terminalPrefix: "~",
-  terminalDirPath: "/home/znci",
+  terminalDirPath: "C:\\",
   terminalFullUser: "",
   currentLine: "",
 
@@ -78,7 +78,9 @@ const terminal = {
                 try {
                   command.execute(args, terminal, command.config);
                 } catch (error) {
-                  this.write(`An error occured while executing the command ${command.getName()}`, true);
+                  this.cWrite(`An error occured while executing the command <cg>${command.getName()}</cg>`);
+                  this.cWrite(`<cr>${error}</cr>`);
+                  console.log(error);
                 }
 
                 cmdFound = true;
@@ -174,4 +176,8 @@ const terminal = {
       -1,
     );
   },
+
+  setTerminalDirPath: function (path = "") {
+    this.terminalDirPath = path;
+  }
 };

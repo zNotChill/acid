@@ -46,7 +46,8 @@ html {
   align-items: flex-start;
   justify-content: flex-start;
   padding: 2rem;
-  overflow: hidden;
+  overflow: normal;
+  overflow-y: scroll;
 }
 
 .terminal-cr,
