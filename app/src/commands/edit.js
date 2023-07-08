@@ -17,7 +17,7 @@ module.exports = new Command(
     const editor = require("editor");
 
     editor(filePath, (code, sig) => {
-      terminal.cWrite(`File saved with code ${code} and signal ${sig}`);
+      terminal.cWrite(`Saved a file at <co>${filePath}</co>`);
     });
   },
   {
