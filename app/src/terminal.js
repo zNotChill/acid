@@ -62,7 +62,6 @@ const terminal = {
             if (cmd.name == command) {
               const run = cmd.execute(args, this, (res) => {
                 if(res == 0) {
-                  console.log("Command returned 0");
                   this.write(``, false);
                 }
               });

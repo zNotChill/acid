@@ -22,6 +22,26 @@
   if (theme) {
     document.documentElement.setAttribute('data-theme', theme);
   }
+
+  var cache;
+
+  fetch("http://localhost:18936/api/cache/data")
+    .then(response => response.json())
+    .then(data => {
+      cache = data;
+      
+      document.documentElement.style = `
+        --background: ${cache.settings.colors.background};
+        --shape: ${cache.settings.colors.shape};
+        --tag1: ${cache.settings.colors['tag-cr']};
+        --tag2: ${cache.settings.colors['tag-cp']};
+        --tag3: ${cache.settings.colors['tag-cg']};
+        --tag4: ${cache.settings.colors['tag-co']};
+        --tag5: ${cache.settings.colors['tag-cb']};
+        --tag6: ${cache.settings.colors['tag-cy']};
+        --text-body: ${cache.settings.colors.text};
+      `;
+    });
 </script>
 <script src="./bin/math.min.js" defer></script>
 </html>

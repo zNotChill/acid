@@ -17,7 +17,11 @@ const createWindow = () => {
   win.loadFile("src/index.html");
 };
 
-app.whenReady().then(createWindow);
+app.whenReady().then(() => {
+  createWindow();
+
+  require("./api");
+});
 
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") app.quit();
