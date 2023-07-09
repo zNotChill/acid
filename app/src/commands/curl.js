@@ -25,7 +25,7 @@ module.exports = {
       });
   },
   flags: {
-    requireArgs: true,
+    requiresArgs: true,
     minimumArgs: 1,
     usage: "curl <url>"
   }

@@ -4,7 +4,7 @@ const { Command } = require("../commands");
 module.exports = {
   name: "edit",
   description: "Edits a file",
-  execute: (args, terminal) => {
+  execute: (args, terminal, call) => {
     const fs = require("fs");
     const path = require("path");
 
@@ -18,7 +18,7 @@ module.exports = {
 
     editor(filePath, (code, sig) => {
       terminal.cWrite(`Saved a file at <co>${filePath}</co>`);
-      terminal.write(``, false);
+      call(0);
     });
   },
   flags: {

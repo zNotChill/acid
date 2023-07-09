@@ -5,7 +5,7 @@ const { Command } = require("../commands");
 module.exports = {
   name: "ls",
   description: "Lists chosen data",
-  execute: (args, terminal, config) => {
+  execute: (args, terminal, call) => {
     const fs = require("fs");
     const path = require("path");
 
@@ -36,5 +36,6 @@ module.exports = {
       }
       terminal.cWrite(`${type ? "📁" : "📘"} ${file}`);
     });
+    call(0);
   }
 }

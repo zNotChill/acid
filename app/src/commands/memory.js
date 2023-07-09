@@ -15,7 +15,8 @@ function parseUsage(usage) {
 module.exports = {
   name: "memory",
   description: "Shows memory usage",
-  execute: (args, terminal) => {
+  execute: (args, terminal, call) => {
     terminal.cWrite(`Memory usage: ${parseUsage(process.memoryUsage().heapUsed)}`);
+    call(0);
   }
 }

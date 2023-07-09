@@ -60,6 +60,11 @@ const terminal = {
           }
           this.commands.map((cmd) => {
             if (cmd.name == command) {
+              if(cmd.flags && cmd.flags.requiresArgs && args.length < cmd.flags.minimumArgs) {
+                this.write(`Usage: <cg>${cmd.flags.usage}</cg>`, true);
+                this.write(``, false);
+                return;
+              }
               const run = cmd.execute(args, this, (res) => {
                 if(res == 0) {
                   this.write(``, false);

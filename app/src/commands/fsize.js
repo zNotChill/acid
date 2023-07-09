@@ -4,7 +4,7 @@ const { Command } = require("../commands");
 module.exports = {
   name: "fsize",
   description: "Changes global font size",
-  execute: (args, terminal) => {
+  execute: (args, terminal, call) => {
     var size = args[0];
 
     if(!size.includes("px")) {
@@ -14,7 +14,7 @@ module.exports = {
     document.body.style.fontSize = `${size}`;
     terminal.cWrite(`Changed global font size to <cg>${size}</cg>`)
 
-    return 0;
+    call(0);
   },
   flags: {
     requiresArgs: true,
