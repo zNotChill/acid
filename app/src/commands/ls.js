@@ -2,11 +2,10 @@
 const { Command } = require("../commands");
 
 // TODO: Add multiple drive support
-module.exports = new Command(
-  "ls",
-  "Lists chosen data",
-  (args, terminal, config) => {
-
+module.exports = {
+  name: "ls",
+  description: "Lists chosen data",
+  execute: (args, terminal, config) => {
     const fs = require("fs");
     const path = require("path");
 
@@ -38,4 +37,4 @@ module.exports = new Command(
       terminal.cWrite(`${type ? "📁" : "📘"} ${file}`);
     });
   }
-)
+}

@@ -1,10 +1,10 @@
 
 const { Command } = require("../commands");
 
-module.exports = new Command(
-  "fsize",
-  "Changes global font size",
-  (args, terminal) => {
+module.exports = {
+  name: "fsize",
+  description: "Changes global font size",
+  execute: (args, terminal) => {
     var size = args[0];
 
     if(!size.includes("px")) {
@@ -16,9 +16,9 @@ module.exports = new Command(
 
     return 0;
   },
-  {
+  flags: {
     requiresArgs: true,
     minimumArgs: 1,
     usage: "fsize <size>",
   }
-)
+}

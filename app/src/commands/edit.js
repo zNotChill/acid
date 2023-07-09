@@ -1,10 +1,10 @@
 
 const { Command } = require("../commands");
 
-module.exports = new Command(
-  "edit",
-  "Edits a file",
-  (args, terminal) => {
+module.exports = {
+  name: "edit",
+  description: "Edits a file",
+  execute: (args, terminal) => {
     const fs = require("fs");
     const path = require("path");
 
@@ -21,9 +21,9 @@ module.exports = new Command(
       terminal.write(``, false);
     });
   },
-  {
+  flags: {
     requiresArgs: true,
     minimumArgs: 1,
     usage: "edit <file>",
   }
-)
+}

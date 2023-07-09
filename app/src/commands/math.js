@@ -2,10 +2,10 @@
 const { Command } = require("../commands");
 const math = require("mathjs");
 
-module.exports = new Command(
-  "math",
-  "Does math",
-  (args, terminal) => {
+module.exports = {
+  name: "math",
+  description: "Does math",
+  execute: (args, terminal) => {
     try {
       if(!args.length || args.length < 1) return terminal.cWrite("Provide an expression");
       terminal.cWrite(math.evaluate(args.join(" ")));
@@ -13,4 +13,4 @@ module.exports = new Command(
       terminal.cWrite("Invalid expression");
     }
   }
-)
+}

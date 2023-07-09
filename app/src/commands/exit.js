@@ -1,10 +1,10 @@
 
 const { Command } = require("../commands");
 
-module.exports = new Command(
-  "exit",
-  "Exits the terminal",
-  (args, terminal) => {
+module.exports = {
+  name: "exit",
+  description: "Exits the terminal",
+  execute: (args, terminal) => {
     window.close();
   }
-)
+}

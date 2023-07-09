@@ -1,10 +1,10 @@
 
 const { Command } = require("../commands");
 
-module.exports = new Command(
-  "echo",
-  "Prints text",
-  (args, terminal) => {
+module.exports = {
+  name: "echo",
+  description: "Prints text",
+  execute: (args, terminal) => {
     terminal.cWrite(args.join(" "));
   }
-)
+}

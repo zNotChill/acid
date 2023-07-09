@@ -12,10 +12,10 @@ function parseUsage(usage) {
   return `${usage.toFixed(2)} ${units[i]}`;
 }
 
-module.exports = new Command(
-  "memory",
-  "Shows memory usage",
-  (args, terminal) => {
+module.exports = {
+  name: "memory",
+  description: "Shows memory usage",
+  execute: (args, terminal) => {
     terminal.cWrite(`Memory usage: ${parseUsage(process.memoryUsage().heapUsed)}`);
   }
-)
+}

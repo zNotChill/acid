@@ -53,18 +53,20 @@ const terminal = {
           const split = this.currentLine.querySelector(".terminal-text").innerText;
           const args = split.split(" ");
           const command = args.shift();
-          if(!this.commands.map((cmd) => cmd.getName()).includes(command)) {
+          if(!this.commands.map((cmd) => cmd.name).includes(command)) {
             this.write(`Command "<cg>${command}</cg>" not found`, true);
             this.write(``, false);
             return;
           }
-          this.commands.map(async (cmd) => {
-            if (cmd.getName() == command) {
-              const run = cmd.execute(args, this);
-              
-              run.then((res) => {
-                console.log(res);
+          this.commands.map((cmd) => {
+            if (cmd.name == command) {
+              const run = cmd.execute(args, this, (res) => {
+                if(res == 0) {
+                  console.log("Command returned 0");
+                  this.write(``, false);
+                }
               });
+
             }
           }
           );

@@ -1,10 +1,10 @@
 
 const { Command } = require("../commands");
 
-module.exports = new Command(
-  "cd",
-  "Changes the current directory",
-  (args, terminal) => {
+module.exports = {
+  name: "cd",
+  description: "Changes the current directory",
+  execute: (args, terminal) => {
     terminal.cWrite(`Command not implemented yet. Try <cg>ls</cg>. Works the same way.`)
   }
-)
+}
