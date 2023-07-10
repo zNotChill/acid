@@ -1,5 +1,5 @@
-
 const { Command } = require("./commands");
+const { exec } = require("child_process");
 
 const terminal = {
   terminal: document.querySelector(".terminal"),
@@ -28,59 +28,68 @@ const terminal = {
 
   init: function () {
     this.terminalFullUser =
-      this.terminalUser +
-      "@" +
-      this.terminalDevice +
-      " " +
-      this.terminalPrefix;
+      this.terminalUser + "@" + this.terminalDevice + " " + this.terminalPrefix;
 
     this.write(`znci Terminal [${this.terminalVersion}]`, true);
     this.write(`Type "help" to see all commands`, true);
     this.write(``, false);
 
     document.addEventListener("keydown", async (e) => {
-      
       let text = e.key.toString();
 
-      if(e.ctrlKey && e.key == "v") {
+      if (e.ctrlKey && e.key == "v") {
         console.log("Pasting");
         text = await navigator.clipboard.readText();
-      } else if(e.ctrlKey) {
+      } else if (e.ctrlKey) {
         return;
       }
       switch (e.key) {
         case "Enter":
-          const split = this.currentLine.querySelector(".terminal-text").innerText;
+          const split =
+            this.currentLine.querySelector(".terminal-text").innerText;
           const args = split.split(" ");
           const command = args.shift();
-          if(!this.commands.map((cmd) => cmd.name).includes(command)) {
-            this.write(`Command "<cg>${command}</cg>" not found`, true);
-            this.write(``, false);
+
+          if (!this.commands.map((cmd) => cmd.name).includes(command)) {
+            // Try to forward this command to the system
+            exec(split, (err, stdout, stderr) => {
+              if (stderr) {
+                this.write(`<cr>${stderr}</cr>`, true);
+                this.write(``, false);
+              }
+
+              this.write(stdout, true);
+              this.write(``, false);
+            });
+
             return;
           }
+
           this.commands.map((cmd) => {
             if (cmd.name == command) {
-              if(cmd.flags && cmd.flags.requiresArgs && args.length < cmd.flags.minimumArgs) {
+              if (
+                cmd.flags &&
+                cmd.flags.requiresArgs &&
+                args.length < cmd.flags.minimumArgs
+              ) {
                 this.write(`Usage: <cg>${cmd.flags.usage}</cg>`, true);
                 this.write(``, false);
                 return;
               }
               const run = cmd.execute(args, this, (res) => {
-                if(res == 0) {
+                if (res == 0) {
                   this.write(``, false);
                 }
               });
-
             }
-          }
-          );
+          });
           break;
         case "Backspace":
           this.backspaceCurrentLine();
           break;
         default:
-          if(e.ctrlKey) return;
-          if(e.key.length > 1) return;
+          if (e.ctrlKey) return;
+          if (e.key.length > 1) return;
           this.writeToCurrentLine(text);
           break;
       }
@@ -99,7 +108,8 @@ const terminal = {
     const element = document.createElement("div");
     element.classList.add("terminal-line");
 
-    const fmt = text.replaceAll("<", "&lt;")
+    const fmt = text
+      .replaceAll("<", "&lt;")
       .replaceAll("&lt;cg>", "<cg>")
       .replaceAll("&lt;/cg>", "</cg>")
 
@@ -116,7 +126,7 @@ const terminal = {
       .replaceAll("&lt;/co>", "</co>")
 
       .replaceAll("&lt;cp>", "<cp>")
-      .replaceAll("&lt;/cp>", "</cp>")
+      .replaceAll("&lt;/cp>", "</cp>");
 
     element.innerHTML = `
             ${
@@ -165,5 +175,5 @@ const terminal = {
 
   setTerminalDirPath: function (path = "") {
     this.terminalDirPath = path;
-  }
+  },
 };
