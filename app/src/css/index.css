@@ -14,7 +14,16 @@
   --tag6: #e5e52e;
   --blue-light: #6933ff;
   --text-title: #363f5f;
+
   --text-body: #ffffff;
+  --font-size: 16px;
+  --font-family: 'JetBrains Mono', monospace;
+
+  /* Width */
+
+  --caret-color: #ffffff;
+  --caret-width: 2px;
+  
 }
 
 * {
