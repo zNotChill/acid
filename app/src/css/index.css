@@ -18,6 +18,7 @@
   --text-body: #ffffff;
   --font-size: 16px;
   --font-family: "JetBrains Mono", monospace;
+  --font-weight: 400;
 
   /* Caret */
 
@@ -35,6 +36,7 @@ html {
   background-color: var(--background);
   font-family: var(--font-family);
   font-size: var(--font-size);
+  font-weight: var(--font-weight);
   color: var(--text-body);
 }
 

@@ -12,8 +12,9 @@ document.documentElement.style = `
   --tag6: ${cache.settings.colors["tag-cy"]};
   --text-body: ${cache.settings.colors.text};
 
-  --font-family: ${cache.settings.font};
-  --font-size: ${cache.settings.fontSize};
+  --font-family: ${cache.settings.typography.font};
+  --font-size: ${cache.settings.typography.fontSize};
+  --font-weight: ${cache.settings.typography.fontWeight};
 
   --caret-color: ${cache.settings.colors.text};
   --caret-width: 2px;

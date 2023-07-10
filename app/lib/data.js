@@ -11,21 +11,27 @@ const appDataDir = appDataPath + "/acid-terminal";
 const cacheDataDir = appDataDir + "/cache";
 
 const store = {
-  settings: {
-    theme: "dark",
-    fontSize: "12px",
-    font: "JetBrains Mono, monospace",
+  "settings": {
+    "theme": "dark",
+    "fontSize": "12px",
+    "font": "JetBrains Mono, monospace",
 
-    colors: {
-      background: "#121212",
-      shape: "#ffffff",
-      text: "#ffffff",
+    "colors": {
+      "background": "#121212",
+      "shape": "#ffffff",
+      "text": "#ffffff",
       "tag-cr": "#e52e4d",
       "tag-cg": "#33cc95",
       "tag-cy": "#e5e52e",
       "tag-cb": "#6933ff",
       "tag-co": "#ff872c",
       "tag-cp": "#5429cc",
+    },
+
+    "typography": {
+      "font": "JetBrains Mono, monospace",
+      "fontSize": "12px",
+      "fontWeight": "400",
     },
   },
 };
@@ -38,11 +44,16 @@ function checkRootDir() {
 function rootDirExists() {
   return fs.existsSync(appDataDir);
 }
+function checkSavedData() {
+  if (!fs.existsSync(cacheDataDir + "/data.json")) {
+    fs.writeFileSync(cacheDataDir + "/data.json", JSON.stringify(store, null, 2));
+  }
+}
 function savedDataExists() {
   return fs.existsSync(cacheDataDir + "/data.json");
 }
 function saveData() {
-  fs.writeFileSync(cacheDataDir + "/data.json", JSON.stringify(store));
+  fs.writeFileSync(cacheDataDir + "/data.json", JSON.stringify(store, null, 2));
 }
 
 function loadData() {
