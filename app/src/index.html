@@ -26,6 +26,8 @@
   var data = require("../data.js")
   var cache = data.cacheData();
 
+  console.log(cache);
+
   document.documentElement.style = `
     --background: ${cache.settings.colors.background};
     --shape: ${cache.settings.colors.shape};
