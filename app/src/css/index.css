@@ -19,11 +19,11 @@
   --font-size: 16px;
   --font-family: 'JetBrains Mono', monospace;
 
-  /* Width */
+  /* Caret */
 
   --caret-color: #ffffff;
   --caret-width: 2px;
-  
+
 }
 
 * {
@@ -34,8 +34,8 @@
 
 html {
   background-color: var(--background);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
+  font-family: var(--font-family);
+  font-size: var(--font-size);
   color: var(--text-body);
 }
 

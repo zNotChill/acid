@@ -1,5 +1,4 @@
 
-const { Command } = require("./commands");
 
 const terminal = {
   terminal: document.querySelector(".terminal"),
