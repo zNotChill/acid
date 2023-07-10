@@ -1,4 +1,3 @@
-
 const { Command } = require("../commands");
 
 module.exports = {
@@ -7,5 +6,5 @@ module.exports = {
   execute: (args, terminal, call) => {
     terminal.clear();
     call(0);
-  }
-}
+  },
+};

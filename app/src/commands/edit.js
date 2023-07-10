@@ -1,4 +1,3 @@
-
 const { Command } = require("../commands");
 
 module.exports = {
@@ -8,11 +7,12 @@ module.exports = {
     const fs = require("fs");
     const path = require("path");
 
-    if(!args.length || args.length < 1) return terminal.cWrite("Provide a file name");
+    if (!args.length || args.length < 1)
+      return terminal.cWrite("Provide a file name");
 
     const filePath = path.join(terminal.terminalDirPath, args[0]);
 
-    if(!fs.existsSync(filePath)) return terminal.cWrite("File does not exist");
+    if (!fs.existsSync(filePath)) return terminal.cWrite("File does not exist");
 
     const editor = require("editor");
 
@@ -25,5 +25,5 @@ module.exports = {
     requiresArgs: true,
     minimumArgs: 1,
     usage: "edit <file>",
-  }
-}
+  },
+};

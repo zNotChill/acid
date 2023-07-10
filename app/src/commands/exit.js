@@ -1,4 +1,3 @@
-
 const { Command } = require("../commands");
 
 module.exports = {
@@ -6,5 +5,5 @@ module.exports = {
   description: "Exits the terminal",
   execute: (args, terminal) => {
     window.close();
-  }
-}
+  },
+};

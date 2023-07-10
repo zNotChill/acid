@@ -1,4 +1,3 @@
-
 const { Command } = require("../commands");
 
 module.exports = {
@@ -6,7 +5,7 @@ module.exports = {
   description: "Makes a request to a URL",
   execute: (args, terminal, call) => {
     const url = args[0] || "";
-    
+
     if (!url.startsWith("http://") && !url.startsWith("https://")) {
       terminal.cWrite("Invalid URL");
       call(0);
@@ -14,12 +13,12 @@ module.exports = {
     }
 
     fetch(url)
-      .then(res => res.text())
-      .then(body => {
+      .then((res) => res.text())
+      .then((body) => {
         terminal.cWrite(body);
         call(0);
       })
-      .catch(err => {
+      .catch((err) => {
         terminal.cWrite("An error occurred");
         call(0);
       });
@@ -27,6 +26,6 @@ module.exports = {
   flags: {
     requiresArgs: true,
     minimumArgs: 1,
-    usage: "curl <url>"
-  }
-}
+    usage: "curl <url>",
+  },
+};

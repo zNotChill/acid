@@ -13,17 +13,16 @@
       </div>
     </div>
   </body>
-<script src="./terminal.js"></script>
-<script>
+  <script src="./terminal.js"></script>
+  <script>
+    terminal.init();
+    const theme = localStorage.getItem("theme");
 
-  terminal.init();
-  const theme = localStorage.getItem('theme');
+    if (theme) {
+      document.documentElement.setAttribute("data-theme", theme);
+    }
 
-  if (theme) {
-    document.documentElement.setAttribute('data-theme', theme);
-  }
-
-  require("../lib/loadSettings.js");
-</script>
-<script src="./bin/math.min.js" defer></script>
+    require("../lib/loadSettings.js");
+  </script>
+  <script src="./bin/math.min.js" defer></script>
 </html>

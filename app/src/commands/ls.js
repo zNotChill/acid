@@ -1,4 +1,3 @@
-
 const { Command } = require("../commands");
 
 // TODO: Add multiple drive support
@@ -10,7 +9,7 @@ module.exports = {
     const path = require("path");
 
     const dir = path.join(terminal.terminalDirPath, args.join(" "));
-    
+
     const files = fs.readdirSync(dir);
 
     terminal.setTerminalDirPath(dir);
@@ -18,11 +17,13 @@ module.exports = {
 
     const max = 80;
 
-    if(files.length < 1) return terminal.cWrite("No files found");
+    if (files.length < 1) return terminal.cWrite("No files found");
 
-    if(files.length > max) {
-      terminal.cWrite(`Displaying more than <cg>${max}</cg> files may degrade performance.`);
-      terminal.cWrite(`Showing first <cg>${max}</cg> files...`)
+    if (files.length > max) {
+      terminal.cWrite(
+        `Displaying more than <cg>${max}</cg> files may degrade performance.`,
+      );
+      terminal.cWrite(`Showing first <cg>${max}</cg> files...`);
       files.length = max;
     }
 
@@ -37,5 +38,5 @@ module.exports = {
       terminal.cWrite(`${type ? "📁" : "📘"} ${file}`);
     });
     call(0);
-  }
-}
+  },
+};
