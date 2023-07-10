@@ -20,7 +20,7 @@ const createWindow = () => {
 app.whenReady().then(() => {
   createWindow();
 
-  require("./api");
+  require("./data");
 });
 
 app.on("window-all-closed", () => {

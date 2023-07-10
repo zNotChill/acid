@@ -1,16 +1,10 @@
-const express = require('express');
-const server = express();
 const path = require('path');
 const fs = require('fs');
-const bodyParser = require('body-parser');
 
 const appDataPath = process.env.APPDATA || (process.platform === 'darwin' ? process.env.HOME + 'Library/Preferences' : '/var/local');
 const appDataDir = appDataPath + '/acid-terminal';
 
 const cacheDataDir = appDataDir + '/cache';
-
-server.use(bodyParser.json());
-server.use(bodyParser.urlencoded({ extended: false }));
 
 const store = {
   settings: {
@@ -46,16 +40,20 @@ function savedDataExists() {
 function saveData() {
   fs.writeFileSync(cacheDataDir + '/data.json', JSON.stringify(store));
 }
+
 function loadData() {
   const data = JSON.parse(fs.readFileSync(cacheDataDir + '/data.json').toString());
   store.player = Object.assign(new Player(), data.player);
   store.settings = Object.assign(new Settings(), data.settings);
 }
+exports.loadData = loadData;
+
 function resetData() {
   store.player = new Player();
   store.settings = new Settings();
   saveData();
 }
+exports.resetData = resetData;
 
 if(!rootDirExists()) {
   checkRootDir();
@@ -63,25 +61,20 @@ if(!rootDirExists()) {
   saveData();
 }
 
-server.get("/api/cache/data", (req, res) => {
+function cacheData() {
   const filePath = path.resolve(cacheDataDir, './data.json');
   const data = fs.readFileSync(filePath, 'utf-8');
-  res.json(JSON.parse(data));
-})
+  
+  return JSON.parse(data);
+}
+exports.cacheData = cacheData;
 
-server.post("/api/cache/data", (req, res) => {
+function setCacheData(a) {
   const filePath = path.resolve(cacheDataDir, './data.json');
-  const data = JSON.stringify(req.body);
+  const data = JSON.stringify(a);
 
   fs.writeFileSync(filePath, data, 'utf-8');
 
-  res.json({
-    success: true
-  });
-})
-
-const PORT = 18936;
-
-server.listen(PORT, () => {
-  console.log('API is running at PORT ' + PORT);
-})
+  return data;
+}
+exports.setCacheData = setCacheData;
