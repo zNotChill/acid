@@ -1,4 +1,3 @@
-
 const { Command } = require("../commands");
 
 module.exports = {
@@ -7,12 +6,12 @@ module.exports = {
   execute: (args, terminal, call) => {
     var size = args[0];
 
-    if(!size.includes("px")) {
+    if (!size.includes("px")) {
       size += "px";
     }
 
     document.body.style.fontSize = `${size}`;
-    terminal.cWrite(`Changed global font size to <cg>${size}</cg>`)
+    terminal.cWrite(`Changed global font size to <cg>${size}</cg>`);
 
     call(0);
   },
@@ -20,5 +19,5 @@ module.exports = {
     requiresArgs: true,
     minimumArgs: 1,
     usage: "fsize <size>",
-  }
-}
+  },
+};

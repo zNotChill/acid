@@ -1,4 +1,3 @@
-const { Command } = require("./commands");
 const { exec } = require("child_process");
 
 const terminal = {
@@ -61,8 +60,6 @@ const terminal = {
               this.write(stdout, true);
               this.write(``, false);
             });
-
-            return;
           }
 
           this.commands.map((cmd) => {

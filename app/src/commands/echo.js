@@ -1,4 +1,3 @@
-
 const { Command } = require("../commands");
 
 module.exports = {
@@ -7,5 +6,5 @@ module.exports = {
   execute: (args, terminal, curl) => {
     terminal.cWrite(args.join(" "));
     call(0);
-  }
-}
+  },
+};
