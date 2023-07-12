@@ -1,3 +1,5 @@
+const { exec } = require("child_process");
+
 const terminal = {
   terminal: document.querySelector(".terminal"),
   terminalWrapper: document.querySelector(".terminal-wrapper"),
@@ -46,11 +48,20 @@ const terminal = {
             this.currentLine.querySelector(".terminal-text").innerText;
           const args = split.split(" ");
           const command = args.shift();
+
           if (!this.commands.map((cmd) => cmd.name).includes(command)) {
-            this.write(`Command "<cg>${command}</cg>" not found`, true);
-            this.write(``, false);
-            return;
+            // Try to forward this command to the system
+            exec(split, (err, stdout, stderr) => {
+              if (stderr) {
+                this.write(`<cr>${stderr}</cr>`, true);
+                this.write(``, false);
+              }
+
+              this.write(stdout, true);
+              this.write(``, false);
+            });
           }
+
           this.commands.map((cmd) => {
             if (cmd.name == command) {
               if (
