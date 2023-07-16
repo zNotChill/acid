@@ -11,10 +11,8 @@ const appDataDir = appDataPath + "/acid-terminal";
 const cacheDataDir = appDataDir + "/cache";
 
 const store = {
-  "settings": {
+  "display": {
     "theme": "dark",
-    "fontSize": "12px",
-    "font": "JetBrains Mono, monospace",
 
     "colors": {
       "background": "#121212",

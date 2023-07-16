@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron .",
-    "prettier": "npx prettier --write ."
+    "prettier": "npx prettier --write .",
+    "electron-dev": "set ELECTRON_START_URL=http://localhost:3000 && electron ."
   },
   "keywords": [],
   "author": "",
