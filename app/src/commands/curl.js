@@ -1,5 +1,21 @@
 const { Command } = require("../commands");
 
+function curl(url, method = "GET", options = {}) {
+  fetch(url,
+    method,
+    options  
+  )
+    .then((res) => res.text())
+    .then((body) => {
+      return body;
+    })
+    .catch((err) => {
+      return err;
+    });
+}
+
+exports.curl = curl;
+
 module.exports = {
   name: "curl",
   description: "Makes a request to a URL",
