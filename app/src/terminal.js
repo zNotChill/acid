@@ -39,6 +39,8 @@ const terminal = {
       if (e.ctrlKey && e.key == "v") {
         console.log("Pasting");
         text = await navigator.clipboard.readText();
+
+        this.writeToCurrentLine(text);
       } else if (e.ctrlKey) {
         return;
       }
