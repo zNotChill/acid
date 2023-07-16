@@ -1,5 +1,9 @@
 const { Command } = require("../commands");
 
+function generateSpaces(amount) {
+  return "&nbsp;".repeat(amount);
+}
+
 // TODO: Add multiple drive support
 module.exports = {
   name: "ls",
@@ -16,6 +20,8 @@ module.exports = {
     terminal.cWrite(`Listing files in <co>${dir}</co>`);
 
     const max = 80;
+    var longestFileName = 0;
+    var maxPerRow = 2;
 
     if (files.length < 1) return terminal.cWrite("No files found");
 
@@ -30,13 +36,39 @@ module.exports = {
     files.forEach((file) => {
       var type;
 
+      if (file.length > longestFileName) longestFileName = file.length;
+
       try {
         type = fs.lstatSync(path.join(dir, file)).isDirectory();
       } catch (error) {
         type = true;
       }
-      terminal.cWrite(`${type ? "📁" : "📘"} ${file}`);
     });
+
+    // thanks copilot, should probably rewrite this
+    var rows = Math.ceil(files.length / maxPerRow);
+
+    var output = "";
+
+    for (var i = 0; i < rows; i++) {
+      var row = files.slice(i * maxPerRow, i * maxPerRow + maxPerRow);
+
+      row.forEach((file) => {
+        console.log(longestFileName)
+        var type;
+        try {
+          type = fs.lstatSync(path.join(dir, file)).isDirectory();
+        } catch (error) {
+          type = true;
+        }
+        output += `${type ? "📁" : "📘"}${file.padEnd(longestFileName + 2, " ")} ${generateSpaces(longestFileName - file.length)}`;
+      });
+      
+      terminal.cWrite(output);
+      output = "";
+    }
+
     call(0);
+
   },
 };
