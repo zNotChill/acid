@@ -6,13 +6,23 @@ const appDataPath =
   (process.platform === "darwin"
     ? process.env.HOME + "/Library/Preferences"
     : process.env.HOME + "/acid-terminal");
-const appDataDir = appDataPath + "/acid-terminal";
 
+const appDataDir = appDataPath + "/acid-terminal";
 const cacheDataDir = appDataDir + "/cache";
+const assetsDir = cacheDataDir + "/assets";
+
+exports.appDataDir = appDataDir;
+exports.cacheDataDir = cacheDataDir;
+exports.assetsDir = assetsDir;
 
 const store = {
   "display": {
-    "theme": "dark",
+    "theme": {
+      "installed": [
+        "default",
+      ],
+      "selected": "default",
+    },
 
     "colors": {
       "background": "#121212",
@@ -30,6 +40,11 @@ const store = {
       "font": "JetBrains Mono, monospace",
       "fontSize": "12px",
       "fontWeight": "400",
+
+      "caret": {
+        "color": "#ffffff",
+        "width": "2px",
+      }
     },
   },
 };
@@ -70,9 +85,16 @@ function resetData() {
 }
 exports.resetData = resetData;
 
-if (!rootDirExists()) {
+if (!rootDirExists() || !savedDataExists()) {
   checkRootDir();
   fs.mkdirSync(cacheDataDir);
+  checkSavedData();
+
+  fs.mkdirSync(assetsDir);
+  fs.mkdirSync(assetsDir + "/themes");
+  fs.mkdirSync(assetsDir + "/plugins");
+  fs.mkdirSync(assetsDir + "/packs");
+
   saveData();
 }
 
