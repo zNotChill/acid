@@ -55,6 +55,7 @@ const terminal = {
               if (stderr) {
                 this.write(`<cr>${stderr}</cr>`, true);
                 this.write(``, false);
+                return;
               }
 
               this.write(stdout, true);
