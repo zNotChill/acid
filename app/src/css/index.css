@@ -87,3 +87,29 @@ cy {
 co {
   color: var(--tag4);
 }
+
+.terminal-line {
+  position: relative;
+  width: fit-content;
+}
+.terminal-line:last-child .terminal-text::after {
+  content: "";
+  position: absolute;
+  right: 0px;
+  width: var(--caret-width);
+  height: 1.2rem;
+  background-color: var(--caret-color);
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
