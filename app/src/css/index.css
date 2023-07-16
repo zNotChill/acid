@@ -95,7 +95,7 @@ co {
 .terminal-line:last-child .terminal-text::after {
   content: "";
   position: absolute;
-  right: -5px;
+  right: -3px;
   width: var(--caret-width);
   height: 1.2rem;
   background-color: var(--caret-color);
